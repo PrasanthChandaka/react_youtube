@@ -15,8 +15,29 @@ import Explore from "./Explore/Explore";
 import { IoSettingsOutline } from "react-icons/io5";
 import { RiFeedbackLine } from "react-icons/ri";
 
+const containerVariants = {
+  hidden: {
+    x: "-100%",
+    transition: {
+      duration: 0.3,
+    },
+  },
+  visible: {
+    x: 0,
+    transition: {
+      duration: 0.3,
+    },
+  },
+  exit: {
+    x: "0",
+    transition: {
+      ease: "easeInOut",
+    },
+  },
+};
+
 const Nav = () => {
-  const { nav, setNav, category } = useContext(store);
+  const { nav, setNav } = useContext(store);
   let navRef = useRef(null);
 
   useEffect(() => {
@@ -33,10 +54,10 @@ const Nav = () => {
   return (
     nav && (
       <motion.div
-        initial={{ opacity: 0, x: "-100%" }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
-        exit={{ x: 0, opacity: 0, duration: 0.3 }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
         ref={navRef}
         className="h-screen absolute top-0 left-0 bg-[#0F0F0F] w-[240px] text-white p-4 z-[9999]"
       >

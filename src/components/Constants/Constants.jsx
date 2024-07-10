@@ -1,5 +1,5 @@
 export const truncate = (text) => {
-  return text.length > 200 ? text.substring(0, 150) + "..." : text;
+  return text.length > 80 ? text.substring(0, 80) + "..." : text;
 };
 
 export const totalViews = (count) => {

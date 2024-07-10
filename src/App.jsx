@@ -1,14 +1,15 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import Header from "./components/Header/Header";
-import Shorts from "./pages/Shorts";
-import Subscriptions from "./pages/Subscriptions";
-import You from "./pages/You";
-import History from "./pages/History";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Navbar/Nav";
-import Category from "./pages/Category";
+const Home = lazy(() => import("./pages/Home"));
+const Shorts = lazy(() => import("./pages/Shorts"));
+const Subscriptions = lazy(() => import("./pages/Subscriptions"));
+const You = lazy(() => import("./pages/You"));
+const History = lazy(() => import("./pages/History"));
+const Category = lazy(() => import("./pages/Category"));
 
 const App = () => {
   return (
@@ -16,12 +17,54 @@ const App = () => {
       <Header />
       <Nav />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shorts" element={<Shorts />} />
-        <Route path="/subscriptions" element={<Subscriptions />} />
-        <Route path="/you" element={<You />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/feed/:id" element={<Category />} />
+        <Route
+          path="/"
+          element={
+            <Suspense>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/shorts"
+          element={
+            <Suspense>
+              <Shorts />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/subscriptions"
+          element={
+            <Suspense>
+              <Subscriptions />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/you"
+          element={
+            <Suspense>
+              <You />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <Suspense>
+              <History />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/feed/:id"
+          element={
+            <Suspense>
+              <Category />
+            </Suspense>
+          }
+        />
       </Routes>
       <Footer />
     </div>

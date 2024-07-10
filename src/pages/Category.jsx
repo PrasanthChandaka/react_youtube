@@ -5,6 +5,14 @@ import moment from "moment/moment";
 import { truncate, totalViews } from "../components/Constants/Constants";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Loading from "../components/Loading/Loading";
+
+const apiStatusConstants = {
+  initial: "INITIAL",
+  loading: "LOADING",
+  success: "SUCCESS",
+  error: "ERROR",
+};
 
 const categoryImage = {
   Trending: {
@@ -19,13 +27,9 @@ const categoryImage = {
     title: "Music",
     url: "//yt3.googleusercontent.com/vCqmJ7cdUYpvR0bqLpWIe8ktaor4QafQLlfQyTuZy-M9W_YafT8Wo9kdsKL2St1BrkMRpVSJgA=s88-c-k-c0x00ffffff-no-rj-mo",
   },
-  Movies: {
-    title: "Movies",
+  Entertainment: {
+    title: "Entertainment",
     url: "https://www.gstatic.com/youtube/img/tvfilm/clapperboard_profile.png",
-  },
-  Live: {
-    title: "Live",
-    url: "//yt3.googleusercontent.com/uL4xlF3_o_605wg887ENKIaMdEwJn5aP5t-r7HRpQshXL5gIn2AKfNfjZkRN15kTcgS3wK7c=s72-c-k-c0x00ffffff-no-rj",
   },
   Gaming: {
     title: "Gaming",
@@ -39,13 +43,10 @@ const categoryImage = {
     title: "Sports",
     url: "//yt3.googleusercontent.com/mUhuJiCiL8jf0Ngf9sh7BFBZCO0MUL2JyH_5ElHbV2fd13hxZ9zQ3-x-YePA_-PCUUH360G0=s88-c-k-c0x00ffffff-no-rj-mo",
   },
-  Courses: {
-    title: "Courses",
-    url: "https://yt3.googleusercontent.com/WqGyfnVyCluIyyFDPdrHzqEfKQcTbtwhIJJ4Q_F3QGMqnYNs8aKswvDhzpY1q8vhS5g8Expi=s176-c-k-c0x00ffffff-no-rj-mo",
-  },
-  Fashion: {
-    title: "Fashion & Beauty",
-    url: "//yt3.googleusercontent.com/d4wezWM9Sz96jsJXsGhZqVAnyl9HPgobo3Q2u75zU_pGBZHfgsAMoAv7cdEchj_9OpzpsQ70YQ=s72-c-k-c0x00ffffff-no-rj",
+
+  Pets: {
+    title: "Pets & Animals",
+    url: "https://static.thenounproject.com/png/4729907-200.png",
   },
   Podcasts: {
     title: "Podcasts",
@@ -55,18 +56,25 @@ const categoryImage = {
 
 const Category = () => {
   const params = useParams();
+  const [status, setStatus] = useState(apiStatusConstants.initial);
   const { category } = useContext(store);
   const [data, setData] = useState([]);
-  //   const [more, setMore] = useState(false);
+
+  const fetchList = async () => {
+    setStatus(apiStatusConstants.loading);
+    const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=IN&videoCategoryId=${category}&key=AIzaSyCk_2z6u-dITKMVL-DufZuDflMSHrTAnZk`;
+    const response = await fetch(url);
+    const result = await response.json();
+    if (response.ok) {
+      setStatus(apiStatusConstants.success);
+      setData([...result.items]);
+    } else {
+      setStatus(apiStatusConstants.error);
+      setData([]);
+    }
+  };
 
   useEffect(() => {
-    const fetchList = async () => {
-      const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=IN&videoCategoryId=${category}&key=AIzaSyCk_2z6u-dITKMVL-DufZuDflMSHrTAnZk`;
-      const response = await fetch(url);
-      const result = await response.json();
-
-      setData([...result.items]);
-    };
     fetchList();
   }, [category]);
 
@@ -79,20 +87,16 @@ const Category = () => {
         return categoryImage.Shoping.url;
       case categoryImage.Music.title:
         return categoryImage.Music.url;
-      case categoryImage.Movies.title:
-        return categoryImage.Movies.url;
-      case categoryImage.Live.title:
-        return categoryImage.Live.url;
+      case categoryImage.Entertainment.title:
+        return categoryImage.Entertainment.url;
       case categoryImage.Gaming.title:
         return categoryImage.Gaming.url;
       case categoryImage.News.title:
         return categoryImage.News.url;
       case categoryImage.Sports.title:
         return categoryImage.Sports.url;
-      case categoryImage.Courses.title:
-        return categoryImage.Courses.url;
-      case categoryImage.Fashion.title:
-        return categoryImage.Fashion.url;
+      case categoryImage.Pets.title:
+        return categoryImage.Pets.url;
       case categoryImage.Podcasts.title:
         return categoryImage.Podcasts.url;
       default:
@@ -100,9 +104,8 @@ const Category = () => {
     }
   };
 
-  return (
-    <div className="flex">
-      <Sidebar />
+  const renderSuccessView = () => {
+    return (
       <div className="h-screen mx-auto text-white w-full overflow-y-auto flex flex-col gap-5 pt-0 p-5">
         <div className="flex gap-5 items-center">
           <img
@@ -130,38 +133,6 @@ const Category = () => {
                   <BsThreeDotsVertical size={20} />
                 </button>
               </div>
-
-              {/* {more && (
-                <div className="absolute right-0 top-[50px] w-[180px] py-2 bg-[#262626] rounded-xl">
-                  <div className="flex items-center gap-4 hover:bg-[#494848] p-2 cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      focusable="false"
-                      fill="white"
-                    >
-                      <path d="M21 16h-7v-1h7v1zm0-5H9v1h12v-1zm0-4H3v1h18V7zm-11 8-7-4v8l7-4z"></path>
-                    </svg>
-                    <span>Add to queue</span>
-                  </div>
-                  <div className="flex items-center gap-4 hover:bg-[#494848] p-2 cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      focusable="false"
-                      fill="white"
-                    >
-                      <path d="M15 5.63 20.66 12 15 18.37V14h-1c-3.96 0-7.14 1-9.75 3.09 1.84-4.07 5.11-6.4 9.89-7.1l.86-.13V5.63M14 3v6C6.22 10.13 3.11 15.33 2 21c2.78-3.97 6.44-6 12-6v6l8-9-8-9z"></path>
-                    </svg>
-                    <span>Share</span>
-                  </div>
-                </div>
-              )} */}
-
               <p className="text-base font-medium text-[grey]">
                 {each.snippet.channelTitle}
               </p>
@@ -173,6 +144,46 @@ const Category = () => {
           </div>
         ))}
       </div>
+    );
+  };
+
+  const renderFailureView = () => {
+    return (
+      <div className="h-screen w-full flex flex-col gap-5 justify-center items-center p-5 text-[grey]">
+        <img
+          src={img}
+          alt="error-img"
+          className="max-w-[120px] max-h-[120px]"
+        />
+        <p>Something Went Wrong!</p>
+        <button
+          type="button"
+          className="px-4 text-white font-semibold py-2 rounded-md bg-blue-600 border-none"
+          onClick={() => youtubeApi()}
+        >
+          Refresh
+        </button>
+      </div>
+    );
+  };
+
+  const conditionalRender = () => {
+    switch (status) {
+      case apiStatusConstants.loading:
+        return <Loading />;
+      case apiStatusConstants.success:
+        return renderSuccessView();
+      case apiStatusConstants.failure:
+        return renderFailureView();
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="flex">
+      <Sidebar />
+      {conditionalRender()}
     </div>
   );
 };

@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        heading: "clamp(16px,1.5vw,18px)",
+        heading: "clamp(14px,1.5vw,17px)",
+        para: "clamp(14px,1.5vw,17px)",
       },
     },
   },

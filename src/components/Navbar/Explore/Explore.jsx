@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { store } from "../../../context";
 import { useContext } from "react";
+import { MdOutlinePets } from "react-icons/md";
 
 const exploreList = [
   {
@@ -52,8 +53,8 @@ const exploreList = [
     ),
   },
   {
-    title: "Movies",
-    category: 23,
+    title: "Entertainment",
+    category: 24,
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -67,24 +68,7 @@ const exploreList = [
       </svg>
     ),
   },
-  {
-    title: "Live",
-    category: 30,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        focusable="false"
-        fill="white"
-      >
-        <g>
-          <path d="M14 12c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM8.48 8.45l-.71-.7C6.68 8.83 6 10.34 6 12s.68 3.17 1.77 4.25l.71-.71C7.57 14.64 7 13.39 7 12s.57-2.64 1.48-3.55zm7.75-.7-.71.71c.91.9 1.48 2.15 1.48 3.54s-.57 2.64-1.48 3.55l.71.71C17.32 15.17 18 13.66 18 12s-.68-3.17-1.77-4.25zM5.65 5.63l-.7-.71C3.13 6.73 2 9.24 2 12s1.13 5.27 2.95 7.08l.71-.71C4.02 16.74 3 14.49 3 12s1.02-4.74 2.65-6.37zm13.4-.71-.71.71C19.98 7.26 21 9.51 21 12s-1.02 4.74-2.65 6.37l.71.71C20.87 17.27 22 14.76 22 12s-1.13-5.27-2.95-7.08z"></path>
-        </g>
-      </svg>
-    ),
-  },
+
   {
     title: "Gaming",
     category: 20,
@@ -134,36 +118,9 @@ const exploreList = [
     ),
   },
   {
-    title: "Courses",
-    category: 27,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24"
-        viewBox="0 0 24 24"
-        width="24"
-        focusable="false"
-        fill="white"
-      >
-        <path d="M16 21h-2.28c-.35.6-.98 1-1.72 1s-1.38-.4-1.72-1H8v-1h8v1zm4-11c0 2.96-1.61 5.54-4 6.92V19H8v-2.08C5.61 15.54 4 12.96 4 10c0-4.42 3.58-8 8-8s8 3.58 8 8zm-5 8v-1.66l.5-.29C17.66 14.8 19 12.48 19 10c0-3.86-3.14-7-7-7s-7 3.14-7 7c0 2.48 1.34 4.8 3.5 6.06l.5.28V18h6z"></path>
-      </svg>
-    ),
-  },
-  {
-    title: "Fashion & Beauty",
-    category: 26,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24"
-        fill="white"
-        viewBox="0 0 24 24"
-        width="24"
-        focusable="false"
-      >
-        <path d="M12.5 6.44v-.5C13.36 5.71 14 4.93 14 4c0-1.1-.9-2-2-2s-2 .9-2 2h1c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1h-.5v1.44L4 13h2v6h1v2h1v-2h2v3h1v-3h2v2h1v-2h1v-3h3v-3h2l-7.5-6.56zM6.66 12 12 7.33 17.34 12H6.66zM14 18H7v-5h7v5zm1-3v-2h2v2h-2z"></path>
-      </svg>
-    ),
+    title: "Pets & Animals",
+    category: 15,
+    icon: <MdOutlinePets />,
   },
   {
     title: "Podcasts",
@@ -196,6 +153,7 @@ const Explore = () => {
           className="flex items-center gap-4 hover:bg-[#262626] rounded-md p-2 text-[16px] cursor-pointer"
           onClick={() => {
             setCategory(item.category);
+            localStorage.setItem("explore", item.category);
             setNav(false);
           }}
         >
