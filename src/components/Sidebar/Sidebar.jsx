@@ -71,7 +71,7 @@ const Sidebar = () => {
           <p>You</p>
         </Link>
         <Link
-          toto="/history"
+          to="/history"
           className="flex flex-col p-3 gap-1 items-center hover:bg-[#3F3F3F] rounded-md py-4"
         >
           <svg

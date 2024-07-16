@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Navbar/Nav";
+import Player from "./pages/Player";
 const Home = lazy(() => import("./pages/Home"));
 const Shorts = lazy(() => import("./pages/Shorts"));
 const Subscriptions = lazy(() => import("./pages/Subscriptions"));
@@ -62,6 +63,14 @@ const App = () => {
           element={
             <Suspense>
               <Category />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/:categoryId/:id"
+          element={
+            <Suspense>
+              <Player />
             </Suspense>
           }
         />

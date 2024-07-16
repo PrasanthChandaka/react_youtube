@@ -3,6 +3,7 @@ import moment from "moment/moment";
 import { truncate, totalViews } from "../Constants/Constants";
 import Loading from "../Loading/Loading";
 import img from "../../assets/undraw_refreshing_beverage_td3r.svg";
+import { Link } from "react-router-dom";
 
 const apiStatusConstants = {
   initial: "INITIAL",
@@ -14,14 +15,15 @@ const apiStatusConstants = {
 const Feed = () => {
   const [data, setData] = useState([]);
   const [render, setRender] = useState(apiStatusConstants.initial);
+
   const youtubeApi = async () => {
     setRender(apiStatusConstants.loading);
-    const url =
-      "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=IN&videoCategoryId=0&key=AIzaSyCk_2z6u-dITKMVL-DufZuDflMSHrTAnZk";
+    const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=IN&videoCategoryId=0&key=${
+      import.meta.env.VITE_REACT_API_KEY
+    }`;
 
     const response = await fetch(url);
     const result = await response.json();
-    console.log(response);
     if (response.ok) {
       setRender(apiStatusConstants.success);
       setData(result.items);
@@ -50,7 +52,7 @@ const Feed = () => {
     return (
       <div className="h-screen w-full overflow-y-auto grid max-[576px]:grid-cols-1 min-[576px]:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-8 text-white p-5 pb-32">
         {data.map((each, index) => (
-          <div key={index}>
+          <Link to={`/${each.snippet.categoryId}/${each.id}`} key={index}>
             <img
               src={each.snippet.thumbnails.medium.url}
               alt="thumbnail"
@@ -69,7 +71,7 @@ const Feed = () => {
                 <span> {moment(each.snippet.publishedAt).fromNow()}</span>
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     );

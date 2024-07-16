@@ -5,7 +5,7 @@ export default {
     extend: {
       fontSize: {
         heading: "clamp(14px,1.5vw,17px)",
-        para: "clamp(14px,1.5vw,17px)",
+        para: "clamp(12px,1.5vw,17px)",
       },
     },
   },

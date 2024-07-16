@@ -106,7 +106,7 @@ const Category = () => {
 
   const renderSuccessView = () => {
     return (
-      <div className="h-screen mx-auto text-white w-full overflow-y-auto flex flex-col gap-5 pt-0 p-5">
+      <div className="h-screen min-[1080px]:ml-20 text-white w-full overflow-y-auto flex flex-col gap-5 pt-0 p-5">
         <div className="flex gap-5 items-center">
           <img
             src={CategoryImageRender()}

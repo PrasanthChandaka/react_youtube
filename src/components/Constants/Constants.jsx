@@ -9,3 +9,11 @@ export const totalViews = (count) => {
     return `${Math.floor(count / 1000)}K views`;
   }
 };
+
+export const likesCount = (count) => {
+  if (count > 1000000) {
+    return `${Math.floor(count / 1000000)}M`;
+  } else if (count >= 1000) {
+    return `${Math.floor(count / 1000)}K`;
+  }
+};

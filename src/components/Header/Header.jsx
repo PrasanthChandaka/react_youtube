@@ -12,6 +12,20 @@ const Header = () => {
   const [search, setSearch] = useState(false);
   const [menu, setMenu] = useState(false);
   const { nav, setNav } = useContext(store);
+  let ref = useRef(null);
+
+  useEffect(() => {
+    const handleMenu = (e) => {
+      if (!ref.current.contains(e.target)) {
+        setMenu(false);
+      }
+    };
+    window.addEventListener("mousedown", handleMenu);
+
+    return () => {
+      window.removeEventListener("mousedown", handleMenu);
+    };
+  }, []);
 
   return (
     <>
@@ -104,7 +118,7 @@ const Header = () => {
             onClick={() => setSearch(true)}
           />
 
-          <button type="button" onClick={() => setMenu(!menu)}>
+          <button type="button" onClick={() => setMenu(!menu)} ref={ref}>
             <HiDotsVertical
               size={25}
               color="white"

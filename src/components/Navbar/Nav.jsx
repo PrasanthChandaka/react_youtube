@@ -18,20 +18,11 @@ import { RiFeedbackLine } from "react-icons/ri";
 const containerVariants = {
   hidden: {
     x: "-100%",
-    transition: {
-      duration: 0.3,
-    },
   },
   visible: {
     x: 0,
     transition: {
       duration: 0.3,
-    },
-  },
-  exit: {
-    x: "0",
-    transition: {
-      ease: "easeInOut",
     },
   },
 };
@@ -57,7 +48,6 @@ const Nav = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        exit="exit"
         ref={navRef}
         className="h-screen absolute top-0 left-0 bg-[#0F0F0F] w-[240px] text-white p-4 z-[9999]"
       >
