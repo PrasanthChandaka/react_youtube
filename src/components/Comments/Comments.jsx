@@ -28,7 +28,7 @@ const Comments = ({ id }) => {
           <img
             className="h-full w-full object-fill"
             src={each.snippet.topLevelComment.snippet.authorProfileImageUrl}
-            alt=""
+            alt="author-img"
           />
         </div>
         <div>

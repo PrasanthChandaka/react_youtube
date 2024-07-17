@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { store } from "../context";
 import moment from "moment/moment";
 import { truncate, totalViews } from "../components/Constants/Constants";
@@ -59,6 +59,7 @@ const Category = () => {
   const [status, setStatus] = useState(apiStatusConstants.initial);
   const { category } = useContext(store);
   const [data, setData] = useState([]);
+  const { setChannelObject } = useContext(store);
 
   const fetchList = async () => {
     setStatus(apiStatusConstants.loading);
@@ -116,7 +117,12 @@ const Category = () => {
           <h1 className="text-4xl font-bold">{params.id}</h1>
         </div>
         {data.map((each, index) => (
-          <div key={index} className="flex flex-col min-[640px]:flex-row gap-3">
+          <Link
+            to={`/${each.snippet.categoryId}/${each.id}`}
+            onClick={() => setChannelObject(each.snippet.channelId)}
+            key={index}
+            className="flex flex-col min-[640px]:flex-row gap-3"
+          >
             <div className="rounded-xl overflow-hidden min-w-[220px]">
               <img
                 className="h-full w-full object-cover"
@@ -141,7 +147,7 @@ const Category = () => {
                 <span> {moment(each.snippet.publishedAt).fromNow()}</span>
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     );

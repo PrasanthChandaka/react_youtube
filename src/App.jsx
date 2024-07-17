@@ -1,10 +1,11 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 // import Home from "./pages/Home";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Navbar/Nav";
 import Player from "./pages/Player";
+import NotFound from "./pages/NotFound";
 const Home = lazy(() => import("./pages/Home"));
 const Shorts = lazy(() => import("./pages/Shorts"));
 const Subscriptions = lazy(() => import("./pages/Subscriptions"));
@@ -74,6 +75,15 @@ const App = () => {
             </Suspense>
           }
         />
+        <Route
+          path="/not-found"
+          element={
+            <Suspense>
+              <NotFound />
+            </Suspense>
+          }
+        />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
       <Footer />
     </div>

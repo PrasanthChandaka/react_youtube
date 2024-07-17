@@ -17,3 +17,11 @@ export const likesCount = (count) => {
     return `${Math.floor(count / 1000)}K`;
   }
 };
+
+export const subscribersCount = (count) => {
+  if (count > 1000000) {
+    return `${Math.floor(count / 1000000)}M`;
+  } else if (count) {
+    return `${Math.floor(count / 1000)}K`;
+  }
+};

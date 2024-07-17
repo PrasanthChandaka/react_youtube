@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment/moment";
 import { truncate, totalViews } from "../Constants/Constants";
 import Loading from "../Loading/Loading";
 import img from "../../assets/undraw_refreshing_beverage_td3r.svg";
 import { Link } from "react-router-dom";
+import { store } from "../../context";
 
 const apiStatusConstants = {
   initial: "INITIAL",
@@ -15,6 +16,7 @@ const apiStatusConstants = {
 const Feed = () => {
   const [data, setData] = useState([]);
   const [render, setRender] = useState(apiStatusConstants.initial);
+  const { setChannelObject } = useContext(store);
 
   const youtubeApi = async () => {
     setRender(apiStatusConstants.loading);
@@ -52,7 +54,11 @@ const Feed = () => {
     return (
       <div className="h-screen w-full overflow-y-auto grid max-[576px]:grid-cols-1 min-[576px]:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-8 text-white p-5 pb-32">
         {data.map((each, index) => (
-          <Link to={`/${each.snippet.categoryId}/${each.id}`} key={index}>
+          <Link
+            to={`/${each.snippet.categoryId}/${each.id}`}
+            key={index}
+            onClick={() => setChannelObject(each.snippet.channelId)}
+          >
             <img
               src={each.snippet.thumbnails.medium.url}
               alt="thumbnail"
