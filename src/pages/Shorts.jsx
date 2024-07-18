@@ -68,7 +68,6 @@ const Shorts = () => {
                     height="100%"
                     playing={isActive ? true : false}
                     loop={true}
-                    loading="lazy"
                   />
                 )}
               </SwiperSlide>
