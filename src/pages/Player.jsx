@@ -52,7 +52,6 @@ const Player = () => {
       <div className="w-full min-w-[65%]">
         <div className="h-[250px] sm:[350px] md:h-[460px] rounded-xl overflow-hidden">
           <ReactPlayer
-            className=""
             url={`https://www.youtube.com/watch?v=${id}`}
             width="100%"
             height="100%"

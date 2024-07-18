@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="bg-[#0F0F0F] border-t-[1px] text-white border-gray-500 flex min-[640px]:hidden h-[56px] w-full justify-around items-center fixed bottom-0">
+    <div className="bg-[#0F0F0F] border-t-[1px] text-white border-gray-500 flex min-[640px]:hidden h-[56px] w-full justify-around items-center fixed bottom-0 z-[9999]">
       <NavLink to="/" className="flex items-center flex-col gap-1 w-[60px]">
         <IoMdHome size={20} />
         <p className="text-[12px]">Home</p>

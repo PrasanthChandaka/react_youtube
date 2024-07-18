@@ -27,7 +27,6 @@ const RelatedVideos = ({ categoryId }) => {
   }, [categoryId]);
   return (
     <div className="w-full h-full flex flex-col gap-5">
-      <h2 className="text-white">Video Details</h2>
       {data &&
         data.map((each, index) => (
           <Link

@@ -63,7 +63,9 @@ const Category = () => {
 
   const fetchList = async () => {
     setStatus(apiStatusConstants.loading);
-    const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=IN&videoCategoryId=${category}&key=AIzaSyCk_2z6u-dITKMVL-DufZuDflMSHrTAnZk`;
+    const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=IN&videoCategoryId=${category}&key=${
+      import.meta.env.VITE_REACT_API_KEY
+    }`;
     const response = await fetch(url);
     const result = await response.json();
     if (response.ok) {
